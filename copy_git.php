@@ -3,7 +3,7 @@
 /** 
     @param owner
     @param repo
-    @param path_list separted by comma . you can specify the dst by adding :dst_folder_path (a dst path have to finished by /)
+    @param path_list separted by comma . you can specify the dst by adding :dst_folder_path (a dst path have to end with '/')
     @param true to create the full path or false to put immediatly the data in the specified dst
     @param auth token if you need more call
 
@@ -58,7 +58,7 @@ if($argc >= 3)
         curl_setopt_array($curl,[
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_HTTPHEADER => $headers
         ]);
 
         foreach(explode(',',$path_list) as $path)
