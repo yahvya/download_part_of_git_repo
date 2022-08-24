@@ -3,7 +3,7 @@
 /** 
     @param owner
     @param repo
-    @param path_list separted by comma . you can specify the dst by adding :dst_folder_path (a dst path have to end with '/')
+    @param path_list separted by comma . you can specify the dst by adding :dst_folder_path (a dst path have to finished by /)
     @param true to create the full path or false to put immediatly the data in the specified dst
     @param auth token if you need more call
 
@@ -53,12 +53,17 @@ if($argc >= 3)
         ];
 
         if(!empty($argv[5]) )
-            array_push($headers,"Authorization: token {$argv[5]}");
+        {
+            $token = $argv[5];
+
+            array_push($headers,"Authorization: token {$token}");
+        }
+        else $token = '';
 
         curl_setopt_array($curl,[
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers
+            CURLOPT_HTTPHEADER => $headers,
         ]);
 
         foreach(explode(',',$path_list) as $path)
@@ -80,7 +85,7 @@ if($argc >= 3)
                     $filename = __FILE__;
 
                     foreach($response as $content)
-                        echo shell_exec(!empty($path_data[1]) ? "php $filename $owner $repo {$content['path']}:{$path_data[1]} $include_full_path" : "php $filename $owner $repo {$content['path']} $include_full_path");
+                        echo shell_exec(!empty($path_data[1]) ? "php $filename $owner $repo {$content['path']}:{$path_data[1]} $include_full_path $token" : "php $filename $owner $repo {$content['path']} $include_full_path $token");
                 }
                 else
                 {
