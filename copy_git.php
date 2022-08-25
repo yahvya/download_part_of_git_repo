@@ -7,7 +7,7 @@
     @param true to create the full path or false to put immediatly the data in the specified dst
     @param auth token if you need more call
 
-    @errors missed parameter, max attempt, curl error
+    @errors missed parameter, max attempt, curl error,  not found 
 */
 
 function create_path(string $path):string
